@@ -4,7 +4,6 @@ source "https://rubygems.org"
 
 group :production do
   gem "pg", "~> 0.18.4"
-  gem "unicorn", "~> 5.3"
 end
 
 group :development do
@@ -33,6 +32,7 @@ gem "feedjira", "~> 2.1.3"
 gem "i18n"
 gem "loofah", "~> 2.3"
 gem "nokogiri", "~> 1.10"
+gem "puma"
 gem "rack-protection", "~> 1.5"
 gem "rack-ssl", "~> 1.4"
 gem "racksh", "~> 1.0"
