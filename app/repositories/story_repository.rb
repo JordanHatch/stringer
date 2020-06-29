@@ -97,6 +97,8 @@ class StoryRepository
       sanitized_content = ContentSanitizer.sanitize(entry.summary)
     end
 
+    sanitized_content = set_noreferrer_attribute(sanitized_content)
+
     if entry.url.present?
       expand_absolute_urls(sanitized_content, entry.url)
     else

@@ -100,7 +100,7 @@ describe StoryRepository do
                      content: nil,
                      summary: "<a href=\"page\">Page</a>")
 
-      expect(StoryRepository.extract_content(entry)).to eq "<a href=\"http://mdswanson.com/page\">Page</a>"
+      expect(StoryRepository.extract_content(entry)).to match /<a href="http:\/\/mdswanson.com\/page"(.*)>Page<\/a>/
     end
 
     it "ignores URL expansion if entry url is nil" do
@@ -108,7 +108,15 @@ describe StoryRepository do
                      content: nil,
                      summary: "<a href=\"page\">Page</a>")
 
-      expect(StoryRepository.extract_content(entry)).to eq "<a href=\"page\">Page</a>"
+      expect(StoryRepository.extract_content(entry)).to match /<a href=\"page\"(.*)>Page<\/a>/
+    end
+
+    it "adds noreferrer to urls" do
+      entry = double(url: "http://example.org",
+                     content: nil,
+                     summary: "<a href=\"http://example.org\">Page</a>")
+
+      expect(StoryRepository.extract_content(entry)).to eq "<a href=\"http://example.org\" rel=\"noreferrer\">Page</a>"
     end
   end
 end

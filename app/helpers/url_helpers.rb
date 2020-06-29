@@ -36,4 +36,15 @@ module UrlHelpers
 
     uri.to_s
   end
+
+  def set_noreferrer_attribute(content)
+    doc = Nokogiri::HTML.fragment(content)
+
+    doc.css("a[href]").each do |node|
+      existing_value = node.get_attribute("rel")
+      node.set_attribute("rel", [existing_value, "noreferrer"].compact.join(' '))
+    end
+
+    doc.to_html
+  end
 end

@@ -109,4 +109,36 @@ RSpec.describe UrlHelpers do
       expect(url).to eq "https://github.com/progrium/dokku/releases/tag/v0.4.4"
     end
   end
+
+  describe "#set_noreferrer_attribute" do
+    it "adds the noreferrer attribute to existing <a> tags" do
+      content = <<~EOS
+        <div>
+        <a href="http://example.org/">example</a>
+        </div>
+      EOS
+
+      result = helper.set_noreferrer_attribute(content)
+      expect(result.delete("\n")).to eq <<~EOS.delete("\n")
+        <div>
+        <a href="http://example.org/" rel="noreferrer">example</a>
+        </div>
+      EOS
+    end
+
+    it "appends to existing <a> tags with 'rel' values" do
+      content = <<~EOS
+        <div>
+        <a href="http://example.org/" rel="nofollow">example</a>
+        </div>
+      EOS
+
+      result = helper.set_noreferrer_attribute(content)
+      expect(result.delete("\n")).to eq <<~EOS.delete("\n")
+        <div>
+        <a href="http://example.org/" rel="nofollow noreferrer">example</a>
+        </div>
+      EOS
+    end
+  end
 end
