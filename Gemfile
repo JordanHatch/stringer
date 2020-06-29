@@ -14,7 +14,7 @@ end
 group :development, :test do
   gem "capybara", "~> 2.6"
   gem "coveralls", "~> 0.7", require: false
-  gem "faker", "~> 1.2"
+  gem "faker", "~> 2.13.0"
   gem "pry-byebug", "~> 1.2"
   gem "rack-test", "~> 0.6"
   gem "rspec", "~> 3.4"
